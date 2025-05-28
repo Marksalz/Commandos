@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commandos
 {
@@ -14,31 +11,31 @@ namespace Commandos
             Sea,
             Air
         }
-        private List<Commando> commandos = new List<Commando>();
-        public CommandoFactory() { }
 
-        public void CreateCommando(string name, int codeName, CommandoType commandoType)
+        private Dictionary<string, Func<string, int, ICommando>> commandoCreators;
+
+        public CommandoFactory()
         {
-            switch(commandoType)
-            {
-                case CommandoType.Regular:
-                    Commando regularCommando = new Commando(name, codeName);
-                    commandos.Add(regularCommando);
-                    break;
-                case CommandoType.Sea:
-                    SeaCommando seaCommando = new SeaCommando(name, codeName);
-                    commandos.Add(seaCommando);
-                    break;
-                case CommandoType.Air:
-                    AirCommando airCommando = new AirCommando(name, codeName);
-                    commandos.Add(airCommando);
-                    break;
-                default:
-                    Console.WriteLine("Invalid commando type.");
-                    return;
-            }
-            Console.WriteLine($"Commando {name} with code name {codeName} created.");
+            commandoCreators = new Dictionary<string, Func<string, int, ICommando>>();
         }
-        
+
+        public void RegisterCommando(string commandoType, Func<string, int, ICommando> creator)
+        {
+            if (!commandoCreators.ContainsKey(commandoType))
+                commandoCreators[commandoType] = creator;
+            else
+                Console.WriteLine($"Commando type {commandoType} is already registered.");
+        }
+
+        public ICommando CreateCommando(string commandoType, string name, int codeName)
+        {
+            if (commandoCreators.ContainsKey(commandoType))
+                return commandoCreators[commandoType](name, codeName);
+            else
+            {
+                Console.WriteLine($"Commando type {commandoType} is not registered.");
+                return null;
+            }
+        }
     }
 }

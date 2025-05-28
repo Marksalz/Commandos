@@ -1,90 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commandos
 {
-    internal class Commando
+    internal class Commando : ICommando
     {
-        enum CommandoStatus
-        {
-            Standing,
-            Walking,
-            Hiding
-        }
+        public string Name { get; set; }
+        public int CodeName { get; set; }
 
-        enum CommandoTools
-        {
-            Hammer,
-            Chisel,
-            Rope,
-            Bag,
-            WaterBottle
-        }
+        //enum CommandoStatus { Standing, Walking, Hiding }
+        //enum CommandoTools { Hammer, Chisel, Rope, Bag, WaterBottle }
 
-        private string Name { get; set; } // Name of the commando
-        private int codeName {get; set; } // Code name as an integer
-        private CommandoTools[] tools = { CommandoTools.Hammer, CommandoTools.WaterBottle, CommandoTools.Chisel,
-        CommandoTools.Bag, CommandoTools.Rope}; // Array to hold tools
-        private CommandoStatus status = CommandoStatus.Standing; // Default status
-
+        private Enum.CommandoTools[] tools = { Enum.CommandoTools.Hammer, Enum.CommandoTools.WaterBottle, Enum.CommandoTools.Chisel, Enum.  CommandoTools.Bag, Enum.CommandoTools.Rope };
+        private Enum.CommandoStatus status = Enum.CommandoStatus.Standing;
 
         public Commando(string name, int codeName)
         {
             this.Name = name;
-            this.codeName = codeName;
-        }
-
-        public string CodeName
-        {
-            get { return codeName.ToString(); }
-            set
-            {
-                if (int.TryParse(value, out int code))
-                {
-                    codeName = code;
-                }
-                else
-                {
-                    throw new ArgumentException("Code name must be a number.");
-                }
-            }
+            this.CodeName = codeName;
         }
 
         public void Walk()
         {
             Console.WriteLine("Commando is walking.");
-            this.status = CommandoStatus.Walking;
+            this.status = Enum.CommandoStatus.Walking;
         }
 
         public void Hide()
         {
             Console.WriteLine("Commando is hiding.");
-            this.status = CommandoStatus.Hiding;
+            this.status = Enum.CommandoStatus.Hiding;
         }
 
         public virtual void Attack()
         {
-            Console.WriteLine($"Commando {this.codeName} is attacking.");
+            Console.WriteLine($"Commando {this.CodeName} is attacking.");
         }
 
         public string SayName(string commanderRank)
         {
             if (commanderRank.ToLower() == "general")
-            {
                 return Name;
-            }
             else if (commanderRank.ToLower() == "colonel")
-            {
-                return CodeName;
-            }
+                return CodeName.ToString();
             else
-            {
                 return "Cannot pass secret information!";
-            }
         }
     }
 }
