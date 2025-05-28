@@ -10,14 +10,12 @@ namespace Commandos
     {
         static void Main(string[] args)
         {
-            Commando commando = new Commando("John", 007);
-            AirCommando airCommando = new AirCommando("Men", 010);
-            SeaCommando seaCommando = new SeaCommando("Yoni", 011);
-            Commando[] commandos = { commando, airCommando, seaCommando };
-            foreach (Commando commando1 in commandos)
-            {
-                commando1.Attack();
-            }
+            //Game game = new Game();
+            //game.StartGame();
+            Logger logger = Logger.GetLogger();
+            logger.Log("This is a test log message.");
+            string logContent = logger.Read();
+            Console.WriteLine($"Log Content: {logContent}");
         }
     }
 }
