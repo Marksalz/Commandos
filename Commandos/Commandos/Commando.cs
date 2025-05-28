@@ -25,8 +25,8 @@ namespace Commandos
             WaterBottle
         }
 
-        private string name;
-        private int codeName;
+        private string Name { get; set; } // Name of the commando
+        private int codeName {get; set; } // Code name as an integer
         private CommandoTools[] tools = { CommandoTools.Hammer, CommandoTools.WaterBottle, CommandoTools.Chisel,
         CommandoTools.Bag, CommandoTools.Rope}; // Array to hold tools
         private CommandoStatus status = CommandoStatus.Standing; // Default status
@@ -34,7 +34,7 @@ namespace Commandos
 
         public Commando(string name, int codeName)
         {
-            this.name = name;
+            this.Name = name;
             this.codeName = codeName;
         }
 
@@ -75,7 +75,7 @@ namespace Commandos
         {
             if (commanderRank.ToLower() == "general")
             {
-                return this.name;
+                return Name;
             }
             else if (commanderRank.ToLower() == "colonel")
             {
