@@ -22,11 +22,22 @@ namespace Commandos
         {
             Console.WriteLine("Welcome to the Commandos Game!");
             // Initialize factories and create some commandos, enemies, and weapons
-            commandoFactory.CreateCommando("John", 101, CommandoFactory.CommandoType.Regular);
+            commandoFactory.RegisterCommando("Regular", (name, codeName) => new Commando(name, codeName));
+            commandoFactory.RegisterCommando("Sea", (name, codeName) => new SeaCommando(name, codeName));
+            commandoFactory.RegisterCommando("Air", (name, codeName) => new AirCommando(name, codeName));
+
+            Commando john = (Commando)commandoFactory.CreateCommando("Regular", "John", 101);
+            SeaCommando sea = (SeaCommando)commandoFactory.CreateCommando("Sea", "Sam", 102);
+            AirCommando air = (AirCommando)commandoFactory.CreateCommando("Air", "Alex", 103);
+
+            john?.Attack();
+            sea?.Attack();
+            air?.Attack();
+
             enemyFactory.CreateEnemy("Enemy1");
+
             weaponFactory.RegisterWeapon("AK47", (name, manufacturer) => new AK47 { Name = name, Manufacturer = manufacturer });
             weaponFactory.RegisterWeapon("Rock", (name, manufacturer) => new Rock(name, manufacturer));
-
 
             AK47 aK47 = (AK47)weaponFactory.CreateWeapon("AK47", "MyAK47", "Kalashnikov");
             Rock rock = (Rock)weaponFactory.CreateWeapon("Rock", "MyRock", "Nature Inc.");

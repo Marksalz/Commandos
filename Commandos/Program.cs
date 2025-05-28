@@ -10,12 +10,12 @@ namespace Commandos
     {
         static void Main(string[] args)
         {
-            //Game game = new Game();
-            //game.StartGame();
-            Logger logger = Logger.GetLogger();
-            logger.Log("This is a test log message.");
-            string logContent = logger.Read();
-            Console.WriteLine($"Log Content: {logContent}");
+            Game game = new Game();
+            game.StartGame();
+            //Logger logger = Logger.GetLogger();
+            //logger.Log("This is a test log message.");
+            //string logContent = logger.Read();
+            //Console.WriteLine($"Log Content: {logContent}");
         }
     }
 }

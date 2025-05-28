@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commandos\AirCommando.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Interfaces\ICommando.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Weapons\AK47.cs" />
     <Compile Include="Commandos\Commando.cs" />
